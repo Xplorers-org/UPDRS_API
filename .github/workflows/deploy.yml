@@ -1,0 +1,32 @@
+name: Deploy to Hugging Face Spaces
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0        # full history so git push carries all commits
+
+      - name: Push to Hugging Face Space
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          HF_SPACE: ${{ secrets.HF_SPACE }}   # e.g. xplorers/UPDRS_API
+        run: |
+          git config user.email "github-actions@github.com"
+          git config user.name  "GitHub Actions"
+
+          # Add the HF Space as a remote (uses token for auth)
+          git remote add hf_space \
+            "https://user:${HF_TOKEN}@huggingface.co/spaces/${HF_SPACE}"
+
+          # Force-push current branch to HF Space main
+          # HF rebuilds the Docker container on every push
+          git push hf_space HEAD:main --force
