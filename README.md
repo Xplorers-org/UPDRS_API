@@ -1,13 +1,3 @@
----
-title: UPDRS API
-emoji: 🧠
-colorFrom: blue
-colorTo: purple
-sdk: docker
-app_port: 7860
-pinned: false
----
-
 # Parkinson's Disease UPDRS Prediction API
 
 A FastAPI-based REST API that predicts a patient's **motor UPDRS score** (Unified Parkinson's Disease Rating Scale) from a voice recording.
