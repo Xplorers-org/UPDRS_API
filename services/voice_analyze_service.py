@@ -13,10 +13,7 @@ async def process_audio_and_predict(audio_file, basic_info):
     try:
         voice_features = extract_voice_features(temp_file_path)
 
-        patient_name = basic_info['name']
-
-        # exclude name
-        prediction_features = {k: v for k, v in basic_info.items() if k != 'name'}
+        prediction_features = basic_info.copy()
 
         # Encode sex: male=1, female=0
         if 'sex' in prediction_features:
@@ -27,7 +24,7 @@ async def process_audio_and_predict(audio_file, basic_info):
         print("CALLING ML MODEL...")
         prediction = predict_parkinson(feature_data)
 
-        final_result = {"prediction": prediction, "patient": patient_name}
+        final_result = {"prediction": prediction}
         print(f"FINAL RESULT: {final_result}")
 
         return final_result

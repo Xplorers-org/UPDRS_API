@@ -9,7 +9,6 @@ router = APIRouter(
 
 @router.post("/test")
 async def test_endpoint(
-    name: str = Form(...),
     age: int = Form(...),
     sex: str = Form(...),
     test_time: float = Form(...),
@@ -18,7 +17,6 @@ async def test_endpoint(
     
     return {
         "received_data": {
-            "name": name,
             "age": age,
             "sex": sex,
             "test_time": test_time,
@@ -33,7 +31,6 @@ async def test_endpoint(
 
 @router.post("/voice")
 async def analyze_voice(
-    name: str = Form(..., min_length=1, max_length=100),
     age: int = Form(..., gt=10, lt=120),
     sex: str = Form(..., pattern="^(male|female)$"),
     test_time: float = Form(..., gt=0),
@@ -42,7 +39,6 @@ async def analyze_voice(
     # for debugging
     print("-" * 20)
     print("RECEIVED REQUEST FROM FRONTEND:")
-    print(f" Name: {name}")
     print(f"Age: {age}")
     print(f"Sex: {sex}")
     print(f"Test Time: {test_time}")
@@ -59,7 +55,7 @@ async def analyze_voice(
     
     print("-" * 20)
 
-    basic_info = {"age": age, "sex": sex, "name": name, "test_time": test_time}
+    basic_info = {"age": age, "sex": sex, "test_time": test_time}
     print(f"Basic info being passed to service: {basic_info}")
     
     try:

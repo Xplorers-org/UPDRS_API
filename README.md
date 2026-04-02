@@ -27,7 +27,6 @@ Submit a `multipart/form-data` POST request with:
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `name` | string | Patient name |
 | `age` | int | Age (11–119) |
 | `sex` | string | `male` or `female` |
 | `test_time` | float | Time since recruitment (days) |
@@ -37,8 +36,7 @@ Submit a `multipart/form-data` POST request with:
 
 ```json
 {
-  "prediction": 18.42,
-  "patient": "John Doe"
+  "prediction": 18.42
 }
 ```
 
